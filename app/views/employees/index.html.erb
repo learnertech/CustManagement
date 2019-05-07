@@ -1,3 +1,9 @@
-<h1>Employees#index</h1>
-<%= link_to ' logout', destroy_user_session_path, method: :delete %>
-<p>Find me in app/views/employees/index.html.erb</p>
+<%= link_to ' logout', destroy_user_session_path, method: :delete %> <br>
+
+<br>
+<% @employees.each do |emp| %>
+ <%= emp.id %>
+ <%= emp.name %>
+ <%= emp.address %>
+ <%= emp.base_salary %>
+<% end %>
