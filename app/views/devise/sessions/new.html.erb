@@ -1,26 +1,117 @@
-<h2>Log in</h2>
+<div class="container">
+ <div class="col-md-6">
+  <div id="logbox">
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email",class: "input pass" %>
 
-  <div class="field">
     <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
+    <%= f.password_field :password, autocomplete: "current-password" ,class: "input pass" %>
+
+    <% if devise_mapping.rememberable? %>
+    <%= f.check_box :remember_me %>
+    <%= f.label :remember_me %>
+    <% end %>
+
+    <%= f.submit "Log in" ,class: "inputButton" %>
+    <% end %>
+
+    <%= render "devise/shared/links" %>
+
   </div>
+</div>
+</div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
+<style type="text/css">
+  ::selection {
+    background-color: #b5e2e7;
+  }
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
+  ::-moz-selection {
+    background-color: #8ac7d8;
+  }
 
-<%= render "devise/shared/links" %>
+  body {
+    background: #3CC;
+  }
+
+  .container {
+    display: -webkit-flex;
+    display: flex;
+    height: 100%;
+  }
+
+  #logbox {
+    padding: 10px;
+    margin: 50px auto;
+    width: 340px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 175%;
+    color: #757575;
+    font-weight: 300;
+  }
+
+  h1, input {
+    font-family: "Open Sans", Helvetica, sans-serif;
+  }
+
+  .input {
+    width: 75%;
+    height: 50px;
+    display: block;
+    margin: 0 auto 15px;
+    padding: 0 15px;
+    border: none;
+    border-bottom: 2px solid #ebebeb;
+  }
+  .input:focus {
+    outline: none;
+    border-bottom-color: #3CC !important;
+  }
+  .input:hover {
+    border-bottom-color: #dcdcdc;
+  }
+  .input:invalid {
+    box-shadow: none;
+  }
+
+  .pass:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset;
+  }
+
+  .inputButton {
+    position: relative;
+    width: 85%;
+    height: 50px;
+    display: block;
+    margin: 30px auto 30px;
+    color: white;
+    background-color: #3CC;
+    border: none;
+    -webkit-box-shadow: 0 5px 0 #2CADAD;
+    -moz-box-shadow: 0 5px 0 #2CADAD;
+    box-shadow: 0 5px 0 #2CADAD;
+  }
+  .inputButton:hover {
+    top: 2px;
+    -webkit-box-shadow: 0 3px 0 #2CADAD;
+    -moz-box-shadow: 0 3px 0 #2CADAD;
+    box-shadow: 0 3px 0 #2CADAD;
+  }
+  .inputButton:active {
+    top: 5px;
+    box-shadow: none;
+  }
+  .inputButton:focus {
+    outline: none;
+  }
+</style>

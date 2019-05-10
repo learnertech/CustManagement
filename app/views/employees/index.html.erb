@@ -1,9 +1,40 @@
-<%= link_to ' logout', destroy_user_session_path, method: :delete %> <br>
+<%= link_to "Logout", destroy_user_session_path, method: :delete,class: "btn btn-outline-dark" %>
+<div class="container">
+  <div class="page-header">
+    <h3>All Employees</h3>
+    <%= link_to 'Add Employee', new_employee_path ,class: "btn btn-outline-secondary"%>
+  </div>
+</div>
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th class="text-center">Salute</th>
+        <th class="text-center">Name</th>
+         <th class="text-center">Sex</th>
+        <th class="text-center">DOB</th>
+        <th class="text-center">Address</th>
+         <th class="text-center">Phone Number</th>       
+        <th class="text-center">Salary</th>
+        <th class="text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @employees.each do |emp| %>
+        <tr>
+          <td><%= emp.salute %></td>
+          <td><%= emp.name %></td>
+          <td><%= emp.sex %></td>
+          <td><%= emp.dob.strftime("%b/%a/%Y")%></td>
+          <td><%= emp.address %></td>
+           <td><%= emp.phone_number %></td>
+          <td><%= total_salary(emp.base_salary,emp.da,emp.ta) %></td>
+           <td class="text-center">
+           	<%= link_to 'Edit', edit_employee_path(emp) ,class: 'btn btn-success' %>
+           <%= link_to 'Delete', employee_path(emp) , method: :delete, data: { confirm: "Are you sure?" },class: 'btn btn-danger'%></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
-<br>
-<% @employees.each do |emp| %>
- <%= emp.id %>
- <%= emp.name %>
- <%= emp.address %>
- <%= emp.base_salary %>
-<% end %>

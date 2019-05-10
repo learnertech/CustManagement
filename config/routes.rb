@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   root 'employees#index'
-  resources :employees
+  resources :employees do
+    collection do
+     post :add_contact
+    end
+  end
   # get 'employees/new'
   # get 'employees/create'
   # get 'employees/update'

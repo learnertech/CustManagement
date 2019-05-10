@@ -1,2 +1,33 @@
-<h1>Employees#new</h1>
-<p>Find me in app/views/employees/new.html.erb</p>
+<%= link_to 'Back', root_path ,class: "btn btn-primary btn-md"%>
+<div class="container">
+  <div class="page-header">
+    <h3>New Employee</h3>
+  </div>
+</div>
+<div class="col-md-5 center_div">
+  <%= bootstrap_form_for(@employee) do |f| %>
+  <%= f.select :salute, options_for_select([["Select One", ""], "Mr.", "Miss" ]) %>
+  <%= f.text_field :name,class: 'form-control'%>
+  <%= f.label "Gender" %>
+  <%= f.radio_button :sex,'male',:checked => true %>   
+  <%= f.radio_button :sex,'female',:checked => false %>
+  <%= f.date_select :dob , order: [:month, :day, :year],:start_year=>1900 %>
+  <%= f.text_field :phone_number,class: 'form-control' %>
+  <%= f.text_field :base_salary,class: 'form-control' %>
+  <%= f.select :da, ((0..20).map {|i| [i,i] }) %>
+  <%= f.select :ta, ((0..15).map {|i| [i,i] }) %>
+  <%= f.text_area :address,class: 'form-control' %>
+  <%= f.submit "Save Employee",class: 'btn btn-success' %>
+
+  <% end %>
+</div>
+
+
+<style type="text/css">
+	.center_div{
+    margin: 0 auto;
+    width:80% /* value of your choice which suits your alignment */
+  }
+
+</style>
+
