@@ -1,7 +1,7 @@
 class EmployeesController < ApplicationController
   helper_method :total_salary
   def index
-    @employees = Employee.all
+     @employees = Employee.paginate(page: params[:page],per_page: 10)
   end
 
   def new
@@ -11,6 +11,10 @@ class EmployeesController < ApplicationController
   def create
    # debugger
    @employee = Employee.create(employee_params)
+     p_num = params[:employee][:phone_number]
+      p_num.each do|p_no| 
+      @employee.phone_numbers.create(phone_num: p_no)
+     end
    redirect_to root_path
  end
 
@@ -47,7 +51,7 @@ end
 private
 
 def employee_params
- params.require(:employee).permit(:name,:phone_number,:base_salary,:address,:dob,:da,:ta,:salute,:sex)
+ params.require(:employee).permit(:name,:base_salary,:address,:dob,:da,:ta,:salute,:sex)
 end
 
 end

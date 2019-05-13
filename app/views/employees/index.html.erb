@@ -11,30 +11,31 @@
       <tr>
         <th class="text-center">Salute</th>
         <th class="text-center">Name</th>
-         <th class="text-center">Sex</th>
+        <th class="text-center">Sex</th>
         <th class="text-center">DOB</th>
-        <th class="text-center">Address</th>
-         <th class="text-center">Phone Number</th>       
+        <th class="text-center">Address</th>   
         <th class="text-center">Salary</th>
         <th class="text-center">Actions</th>
       </tr>
     </thead>
     <tbody>
       <% @employees.each do |emp| %>
-        <tr>
-          <td><%= emp.salute %></td>
-          <td><%= emp.name %></td>
-          <td><%= emp.sex %></td>
-          <td><%= emp.dob.strftime("%b/%a/%Y")%></td>
+      <tr>
+        <% if emp.present? %>
+        <td><%= emp.salute %></td>
+        <td><%= emp.name %></td>
+        <td><%= emp.sex %></td>
+        <td><%= emp.dob %>
           <td><%= emp.address %></td>
-           <td><%= emp.phone_number %></td>
+          <% end %>
           <td><%= total_salary(emp.base_salary,emp.da,emp.ta) %></td>
-           <td class="text-center">
-           	<%= link_to 'Edit', edit_employee_path(emp) ,class: 'btn btn-success' %>
-           <%= link_to 'Delete', employee_path(emp) , method: :delete, data: { confirm: "Are you sure?" },class: 'btn btn-danger'%></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+          <td class="text-center">
+            <%= link_to 'Edit', edit_employee_path(emp) ,class: 'btn btn-success' %>
+            <%= link_to 'Delete', employee_path(emp) , method: :delete, data: { confirm: "Are you sure?" },class: 'btn btn-danger'%></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+       <%= will_paginate @employees, renderer: WillPaginateSemanticUi::ActionView::Renderer, class: "right floated", inner_window: 3 %>
+    </div>
 

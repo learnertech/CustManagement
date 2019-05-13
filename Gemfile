@@ -64,4 +64,7 @@ gem 'devise'
 gem 'bootstrap', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'bootstrap_form'
+gem 'will_paginate', '~> 3.1.0'
+gem "will_paginate_semantic_ui"
+
 

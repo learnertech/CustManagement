@@ -12,7 +12,13 @@
   <%= f.radio_button :sex,'male',:checked => true %>   
   <%= f.radio_button :sex,'female',:checked => false %>
   <%= f.date_select :dob , order: [:month, :day, :year],:start_year=>1900 %>
-  <%= f.text_field :phone_number,class: 'form-control' %>
+  <%= f.label "Phone" %>
+  <div class="field_wrapper">
+    <div>
+      <input type="text" name="employee[phone_number][]" value=""/> 
+      <a href="javascript:void(0);" class="add_button" title="Add field"><img src="add-icon.png"/></a>
+    </div>
+  </div><br>
   <%= f.text_field :base_salary,class: 'form-control' %>
   <%= f.select :da, ((0..20).map {|i| [i,i] }) %>
   <%= f.select :ta, ((0..15).map {|i| [i,i] }) %>
@@ -30,4 +36,28 @@
   }
 
 </style>
-
+<script type="text/javascript">
+  $(document).ready(function(){
+    var maxField = 10; //Input fields increment limitation
+    var addButton = $('.add_button'); //Add button selector
+    var wrapper = $('.field_wrapper'); //Input field wrapper
+    var fieldHTML = '<div><input type="text" name="employee[phone_number][]" value=""/><a href="javascript:void(0);" class="remove_button"><img src="remove-icon.png"/></a></div>'; //New input field html 
+    var x = 1; //Initial field counter is 1
+    
+    //Once add button is clicked
+    $(addButton).click(function(){
+        //Check maximum number of input fields
+        if(x < maxField){ 
+            x++; //Increment field counter
+            $(wrapper).append(fieldHTML); //Add field html
+          }
+        });
+    
+    //Once remove button is clicked
+    $(wrapper).on('click', '.remove_button', function(e){
+      e.preventDefault();
+        $(this).parent('div').remove(); //Remove field html
+        x--; //Decrement field counter
+      });
+  });
+</script>

@@ -14,7 +14,6 @@
    <%= f.radio_button :sex,'male'  %>   
    <%= f.radio_button :sex,'female' %><br>
     <%= f.date_select :dob , order: [:month, :day, :year],:start_year=>1900, class: 'form-control' %><br>
-  <%= f.text_field :phone_number %><br>
    <%= f.text_field :base_salary %><br>
    <%= f.select :da, ((0..20).map {|i| [i,i] }) %><br>
    <%= f.select :ta, ((0..15).map {|i| [i,i] }) %><br>
