@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   root 'employees#index'
+  
   resources :employees do
     collection do
      post :add_contact
+     post :delete_number
     end
   end
   # get 'employees/new'

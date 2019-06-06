@@ -1,30 +1,46 @@
 class EmployeesController < ApplicationController
   helper_method :total_salary
   def index
-     @employees = Employee.paginate(page: params[:page],per_page: 10)
-  end
-
-  def new
-    @employee = Employee.new
-  end
-
-  def create
-   # debugger
-   @employee = Employee.create(employee_params)
-     p_num = params[:employee][:phone_number]
-      p_num.each do|p_no| 
-      @employee.phone_numbers.create(phone_num: p_no)
-     end
-   redirect_to root_path
+   @employees = Employee.order("created_at desc").paginate(page: params[:page],per_page: 10)
  end
 
- def edit
-  @employee = Employee.find_by_id(params[:id])
+ def new
+  @employee = Employee.new
 end
+
+def create
+   # debugger
+   @employee = Employee.new(employee_params)
+   if @employee.save
+    p_num = params[:employee][:phone_number]
+    p_num.each do|p_no| 
+      @employee.phone_numbers.create!(phone_num: p_no)
+    end
+    redirect_to root_path
+  else
+   render 'new'
+ end
+end
+
+def edit
+ # debugger
+ @employee = Employee.find_by_id(params[:id])
+end
+
 def update
+  #debugger
   @employee = Employee.find_by_id(params[:id])
-  @employee.update(employee_params)
-  redirect_to root_path
+  if @employee.update(employee_params)
+    p_num = params[:employee][:phone_number]
+    if p_num.present?
+      p_num.each do|p_no| 
+        @employee.phone_numbers.create!(phone_num: p_no)
+      end
+    end
+    redirect_to root_path
+  else
+   render 'edit'
+ end
 end
 
 def show
@@ -37,8 +53,22 @@ def destroy
 end
 
 def add_contact
- debugger
+ #debugger
 end
+
+def delete_number
+#debugger
+p_num = params[:deletedPhones] 
+e1 = Employee.find(params[:id])
+if p_num.present? && e1.present?
+ p_num.each do|p_number|
+  e1.phone_numbers.find_by_phone_num(p_number).destroy  
+end
+end
+render json: {status: 'ok', message: "proceed" }
+end
+
+private
 
 def total_salary(sal,da,ta)
   if sal.present? && da.present? && ta.present?
@@ -48,10 +78,9 @@ def total_salary(sal,da,ta)
   end
 end
 
-private
 
 def employee_params
- params.require(:employee).permit(:name,:base_salary,:address,:dob,:da,:ta,:salute,:sex)
+ params.require(:employee).permit(:name,:base_salary,:address,:dob,:da,:ta,:salute,:sex,phone_numbers_attributes: [:id,:phone_num])
 end
 
 end

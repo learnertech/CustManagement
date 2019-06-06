@@ -66,5 +66,11 @@ gem 'jquery-rails'
 gem 'bootstrap_form'
 gem 'will_paginate', '~> 3.1.0'
 gem "will_paginate_semantic_ui"
+gem "font-awesome-rails"
+gem 'nested_form_fields'
+gem 'jquery-ui-rails'
+gem 'sweetalert-rails'
+gem 'semantic-ui-sass'
+
 
 

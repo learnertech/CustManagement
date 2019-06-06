@@ -11,7 +11,15 @@
 // about supported directives.
 //
 //= require jquery
+//= require semantic-ui
 //= require rails-ujs
+//= require jquery-ui/widgets/datepicker
 //= require activestorage
 //= require turbolinks
+//= require_nested_form_fields
+//= require sweetalert
 //= require_tree .
+
+$(document).ready(function(){
+    $( "#datepicker" ).datepicker();
+  });
