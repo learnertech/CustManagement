@@ -7,6 +7,7 @@ Rails.application.routes.draw do
      post :delete_number
     end
   end
+  resources :departments
   # get 'employees/new'
   # get 'employees/create'
   # get 'employees/update'

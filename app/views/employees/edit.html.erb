@@ -33,7 +33,7 @@
 </div>
 </div>
 </div>
-
+<%= render 'sidebar' %>
 <!-- page-content -->
 <section class="wrap page-addVendors">
   <div class="row">
@@ -63,6 +63,7 @@
             <% end %>
             <%= f.select :salute, (["Mr","Miss"])%>
             <%= f.text_field :name,class: 'form-control'%>
+            <%= f.select(:department_id, @dep_options,{:include_blank => true})%>
             <%= f.label "Gender" %><br>
             <%= f.radio_button :sex,'male'  %>   
             <%= f.radio_button :sex,'female' %><br>

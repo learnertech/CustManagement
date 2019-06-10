@@ -1,15 +1,17 @@
 class EmployeesController < ApplicationController
   helper_method :total_salary
   def index
-   @employees = Employee.order("created_at desc").paginate(page: params[:page],per_page: 10)
+   @employees = Employee.order("updated_at desc").paginate(page: params[:page],per_page: 10)
  end
 
  def new
+  @dep_options = Department.all.map { |d| [ d.name,d.id ] } 
   @employee = Employee.new
 end
 
 def create
    # debugger
+  @dep_options = Department.all.map { |d| [ d.name,d.id ] } 
    @employee = Employee.new(employee_params)
    if @employee.save
     p_num = params[:employee][:phone_number]
@@ -24,11 +26,13 @@ end
 
 def edit
  # debugger
+  @dep_options = Department.all.map { |d| [ d.name,d.id ] }
  @employee = Employee.find_by_id(params[:id])
 end
 
 def update
   #debugger
+   @dep_options = Department.all.map { |d| [ d.name,d.id ] }
   @employee = Employee.find_by_id(params[:id])
   if @employee.update(employee_params)
     p_num = params[:employee][:phone_number]
@@ -80,7 +84,7 @@ end
 
 
 def employee_params
- params.require(:employee).permit(:name,:base_salary,:address,:dob,:da,:ta,:salute,:sex,phone_numbers_attributes: [:id,:phone_num])
+ params.require(:employee).permit(:name,:base_salary,:address,:department_id,:dob,:da,:ta,:salute,:sex,phone_numbers_attributes: [:id,:phone_num])
 end
 
 end
