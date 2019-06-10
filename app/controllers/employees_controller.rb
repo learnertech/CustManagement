@@ -15,9 +15,11 @@ def create
    @employee = Employee.new(employee_params)
    if @employee.save
     p_num = params[:employee][:phone_number]
+    if p_num.present?
     p_num.each do|p_no| 
       @employee.phone_numbers.create!(phone_num: p_no)
     end
+  end
     redirect_to root_path
   else
    render 'new'

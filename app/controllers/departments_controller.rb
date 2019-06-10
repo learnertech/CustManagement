@@ -11,11 +11,13 @@ class DepartmentsController < ApplicationController
  def create
     #debugger
     @department = Department.new(department_params)
+    respond_to do |format|
     if @department.save
-     redirect_to departments_path
+      format.html { redirect_to departments_path ,notice: 'Department was successfully created.'}
    else
-    render 'new'
+     format.html {render :new , notice: "Error in Creatin department" }
    end
+ end
   end
 
   def edit
@@ -32,12 +34,14 @@ class DepartmentsController < ApplicationController
   def destroy
     #debugger
     @department = Department.find(params[:id])
+     respond_to do |format|
     if @department.employees.present?
-      redirect_to departments_path
+      format.html { redirect_to departments_path ,notice: 'Department have employees so cannot be deleted'}
     else
       @department.destroy
-      redirect_to departments_path
+      format.html { redirect_to departments_path ,notice: 'Department Deleted successfully'}
     end
+   end
   end
 
   private
